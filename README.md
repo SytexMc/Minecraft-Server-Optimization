@@ -95,7 +95,7 @@ Lets you slow down incremental world saving by spreading the task over time even
 
 ### prevent-moving-into-unloaded-chunks
 
-`Good starting value: true`
+`Good starting value: true (default: false)`
 
 When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your view-distance is.
 
