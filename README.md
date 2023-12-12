@@ -372,3 +372,163 @@ This option can disable portal usage of all entities besides the player. This pr
 Lobotomized villagers are stripped from their AI and only restock their offers every so often. Enabling this will lobotomize villagers that are unable to pathfind to their destination. Freeing them should unlobotomize them.
 
 ---
+
+## Misc
+
+### [spigot.yml](https://www.spigotmc.org/wiki/spigot-configuration/)
+
+#### merge-radius
+
+```
+Good starting values:
+
+      item: 3.5
+      exp: 4.0
+```
+
+This decides the distance between the items and exp orbs to be merged, reducing the amount of items ticking on the ground. Setting this too high will lead to the illusion of items or exp orbs disappearing as they merge together. Setting this too high will break some farms, as well as allow items to teleport through blocks. There are no checks done to prevent items from merging through walls. Exp is only merged on creation.
+
+#### hopper-transfer
+
+`Good starting value: 8`
+
+Time in ticks that hoppers will wait to move an item. Increasing this will help improve performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems if set too high.
+
+#### hopper-check
+
+`Good starting value: 8`
+
+Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and item sorting systems relying on water streams.
+
+### [paper-world configuration](https://docs.papermc.io/paper/reference/world-configuration)
+
+#### alt-item-despawn-rate
+
+```
+Good starting values:
+
+      enabled: true
+      items:
+        cobblestone: 300
+        netherrack: 300
+        sand: 300
+        red_sand: 300
+        gravel: 300
+        dirt: 300
+        grass: 300
+        pumpkin: 300
+        melon_slice: 300
+        kelp: 300
+        bamboo: 300
+        sugar_cane: 300
+        twisting_vines: 300
+        weeping_vines: 300
+        oak_leaves: 300
+        spruce_leaves: 300
+        birch_leaves: 300
+        jungle_leaves: 300
+        acacia_leaves: 300
+        dark_oak_leaves: 300
+        mangrove_leaves: 300
+        cactus: 300
+        diorite: 300
+        granite: 300
+        andesite: 300
+        scaffolding: 600
+```
+
+This list lets you set alternative time (in ticks) to despawn certain types of dropped items faster or slower than default. This option can be used instead of item clearing plugins along with `merge-radius` to improve performance.
+
+#### redstone-implementation
+
+`Good starting value: ALTERNATE_CURRENT`
+
+Replaces the redstone system with faster and alternative versions that reduce redundant block updates, lowering the amount of logic your server has to calculate. Using a non-vanilla implementation may introduce minor inconsistencies with very technical redstone, but the performance gains far outweigh the possible niche issues. A non-vanilla implementation option may additionally fix other redstone inconsistencies caused by CraftBukkit.
+
+The `ALTERNATE_CURRENT` implementation is based off of the [Alternate Current](https://modrinth.com/mod/alternate-current) mod. More information on this algorithm can be found on their resource page.
+
+#### hopper.disable-move-event
+
+`Good starting value: false`
+
+`InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. **Do not set to true if you want to use plugins that listen to this event, e.g. protection plugins!**
+
+#### hopper.ignore-occluding-blocks
+
+`Good starting value: true`
+
+Determines if hoppers will ignore containers inside full blocks, for example hopper minecart inside sand or gravel block. Keeping this enabled will break some contraptions depending on that behavior.
+
+#### tick-rates.mob-spawner
+
+`Good starting value: 2`
+
+This option lets you configure how often spawners should be ticked. Higher values mean less lag if you have a lot of spawners, although if set too high (relative to your spawners delay) mob spawn rates will decrease.
+
+#### optimize-explosions
+
+`Good starting value: true`
+
+Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
+
+#### treasure-maps.enabled
+
+`Good starting value: false`
+
+Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is in an ungenerated chunk. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
+
+#### treasure-maps.find-already-discovered
+
+```
+Good starting values:
+      loot-tables: true
+      villager-trade: true
+```
+
+Default value of this option forces the newly generated maps to look for unexplored structure, which are usually in not yet generated chunks. Setting this to true makes it so maps can lead to the structures that were discovered earlier. If you don't change this to `true` you may experience the server hanging or crashing when generating new treasure maps. `villager-trade` is for maps traded by villagers and loot-tables refers to anything that generates loot dynamically like treasure chests, dungeon chests, etc.
+
+#### tick-rates.grass-spread
+
+`Good starting value: 4`
+
+Time in ticks between the server trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it without the decreased spread rate being noticeable.
+
+#### tick-rates.container-update
+
+`Good starting value: 1`
+
+Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
+
+#### non-player-arrow-despawn-rate
+
+`Good starting value: 20`
+
+Time in ticks after which arrows shot by mobs should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
+
+#### creative-arrow-despawn-rate
+
+`Good starting value: 20`
+
+Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
+
+### [pufferfish.yml](https://docs.pufferfish.host/setup/pufferfish-fork-configuration/)
+
+#### disable-method-profiler
+
+`Good starting value: true`
+
+This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can cause additional lag.
+
+### [purpur.yml](https://purpurmc.org/docs/Configuration/)
+
+#### dolphin.disable-treasure-searching
+
+`Good starting value: true`
+
+Prevents dolphins from performing structure search similar to treasure maps
+
+#### teleport-if-outside-border
+
+`Good starting value: true`
+
+Allows you to teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
