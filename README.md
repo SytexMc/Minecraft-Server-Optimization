@@ -40,7 +40,7 @@ What you should stay away from:
 
 **network-compression-threshold**
 
-`Good starting value: 256 (default)`
+`Good starting value: 256`
 
 This allows you to set the cap for the size of a packet before the server attempts to compress it. Setting it higher can save some CPU resources at the cost of bandwidth, and setting it to -1 disables it. Setting this higher may also hurt clients with slower network connections. If your server is in a network with a proxy or on the same machine (with less than 2 ms ping), disabling this (-1) will be beneficial, since internal network speeds can usually handle the additional uncompressed traffic.
 
@@ -61,13 +61,13 @@ You can enable Purpur's alternate keepalive system so players with bad connectio
 
 **simulation-distance**
 
-`Good starting value: 4 (default: 10)`
+`Good starting value: 4`
 
 Simulation distance is distance in chunks around the player that the server will tick. Essentially the distance from the player that things will happen. This includes furnaces smelting, crops and saplings growing, etc. This is an option you want to purposefully set low, somewhere around `3` or `4`, because of the existence of `view-distance`. This allows to load more chunks without ticking them. This effectively allows players to see further without the same performance impact.
 
 ### view-distance
 
-`Good starting value: 8 (default: 10)`
+`Good starting value: 8`
 
 This is the distance in chunks that will be sent to players, similar to no-tick-view-distance from paper. The total view distance will be equal to the greatest value between `simulation-distance` and `view-distance`. For example, if the simulation distance is set to 4, and the view distance is 12, the total distance sent to the client will be 12 chunks.
 
@@ -83,19 +83,19 @@ This value overwrites server.properties one if not set to default. You should ke
 
 ### delay-chunk-unloads-by 
 
-`Good starting value: 10s (default)`
+`Good starting value: 10s`
 
 This option allows you to configure how long chunks will stay loaded after a player leaves. This helps to not constantly load and unload the same chunks when a player moves back and forth. Too high values can result in way too many chunks being loaded at once. In areas that are frequently teleported to and loaded, consider keeping the area permanently loaded. This will be lighter for your server than constantly loading and unloading chunks.
 
 ### max-auto-save-chunks-per-tick 
 
-`Good starting value: 24 (default)`
+`Good starting value: 8`
 
 Lets you slow down incremental world saving by spreading the task over time even more for better average performance. You might want to set this higher than 8 with more than 20-30 players. If incremental save can't finish in time then bukkit will automatically save leftover chunks at once and begin the process again.
 
 ### prevent-moving-into-unloaded-chunks
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 When enabled, prevents players from moving into unloaded chunks and causing sync loads that bog down the main thread causing lag. The probability of a player stumbling into an unloaded chunk is higher the lower your view-distance is.
 
@@ -130,7 +130,7 @@ With the help of this entry you can set limits to how many entities of specified
 
 #### max-loads-per-projectile
 
-`Good starting value: 8 (default: 10)`
+`Good starting value: 8`
 
 Specifies the maximum amount of chunks a projectile can load in its lifetime. Decreasing will reduce chunk loads caused by entity projectiles, but could cause issues with tridents, enderpearls, etc.
 
@@ -261,37 +261,37 @@ Lets you adjust entity despawn ranges (in blocks). Lower those values to clear t
 
 #### per-player-mob-spawns
 
-`Good starting value: true (default)`
+`Good starting value: true`
 
 This option decides if mob spawns should account for how many mobs are around target player already. You can bypass a lot of issues regarding mob spawns being inconsistent due to players creating farms that take up the entire mobcap. This will enable a more singleplayer-like spawning experience, allowing you to set lower `spawn-limits`. Enabling this does come with a very slight performance impact, however it's impact is overshadowed by the improvements in `spawn-limits` it allows.
 
 #### max-entity-collisions
 
-`Good starting value: 4 (default: 8)`
+`Good starting value: 2`
 
 Overwrites option with the same name in [spigot.yml]. It lets you decide how many collisions one entity can process at once. Value of `0` will cause inability to push other entities, including players. Value of `2` should be enough in most cases. It's worth noting that this will render maxEntityCramming gamerule useless if its value is over the value of this config option.
 
 #### update-pathfinding-on-block-update
 
-`Good starting value: false (default: true)`
+`Good starting value: false`
 
 Disabling this will result in less pathfinding being done, increasing performance. In some cases this will cause mobs to appear more laggy; They will just passively update their path every 5 ticks (0.25 sec).
 
 #### fix-climbing-bypassing-cramming-rule
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 Enabling this will fix entities not being affected by cramming while climbing. This will prevent absurd amounts of mobs being stacked in small spaces even if they're climbing (spiders).
 
 #### armor-stands.tick
 
-`Good starting value: false (default: true)`
+`Good starting value: false`
 
 In most cases you can safely set this to `false`. If you're using armor stands or any plugins that modify their behavior and you experience issues, re-enable it. This will prevent armor stands from being pushed by water or being affected by gravity.
 
 #### armor-stands.do-collision-entity-lookups
 
-`Good starting value: false (default: true`
+`Good starting value: false`
 
 Here you can disable armor stand collisions. This will help if you have a lot of armor stands and don't need them colliding with anything.
 
@@ -321,37 +321,37 @@ This decides how often specified behaviors and sensors are being fired in ticks.
 
 #### dab.enabled
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 DAB (dynamic activation of brain) reduces the amount an entity is ticked the further away it is from players. DAB works on a gradient instead of a hard cutoff like EAR. Instead of fully ticking close entities and barely ticking far entities, DAB will reduce the amount an entity is ticked based on the result of a calculation influenced by [dab.activation-dist-mod](#dabactivation-dist-mod).
 
 #### dab.max-tick-freq
 
-`Good starting value: 20 (default)`
+`Good starting value: 20`
 
 Defines the slowest amount entities farthest from players will be ticked. Increasing this value may improve the performance of entities far from view but may break farms or greatly nerf mob behavior. If enabling DAB breaks mob farms, try decreasing this value.
 
 #### dab.activation-dist-mod
 
-`Good starting value: 8 (default)`
+`Good starting value: 8`
 
 Controls the gradient in which mobs are ticked. Decreasing this will activate DAB closer to players, improving DAB's performance gains, but will affect how entities interact with their surroundings and may break mob farms. If enabling DAB breaks mob farms, try increasing this value.
 
 #### enable-async-mob-spawning
 
-`Good starting value: true (default)`
+`Good starting value: true`
 
 If asynchronous mob spawning should be enabled. For this to work, the Paper's per-player-mob-spawns setting must be enabled. This option does not actually spawn mobs asynchronous, but does offload much of the computational effort involved with spawning new mobs to a different thread. Enabling this option should not be noticeable on vanilla gameplay.
 
 #### enable-suffocation-optimization
 
-`Good starting value: true (default)`
+`Good starting value: true`
 
 This option optimises a suffocation check (the check to see if a mob is inside a block and if they should take suffocation damage), by rate limiting the check to the damage timeout. This optimisation should be impossible to notice unless you're an extremely technical player who's using tick-precise timing to kill an entity at exactly the right time by suffocation.
 
 #### inactive-goal-selector-throttle
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 Throttles the AI goal selector in entity inactive ticks, causing the inactive entities to update their goal selector every 20 ticks instead of every tick. Can improve performance by a few percent, and has minor gameplay implications.
 
@@ -359,19 +359,19 @@ Throttles the AI goal selector in entity inactive ticks, causing the inactive en
 
 #### zombie.aggressive-towards-villager-when-lagging
 
-`Good starting value: false (default: true)`
+`Good starting value: false`
 
 Enabling this will cause zombies to stop targeting villagers if the server is below the tps threshold set with `lagging-threshold` in [purpur.yml](https://purpurmc.org/docs/Configuration/).
 
 #### entities-can-use-portals
 
-`Good starting value: false (default: true)`
+`Good starting value: false`
 
 This option can disable portal usage of all entities besides the player. This prevents entities from loading chunks by changing worlds which is handled on the main thread. This has the side effect of entities not being able to go through portals.
 
 #### villager.lobotomize.enabled
 
-`Good starting value: false (default)`
+`Good starting value: false`
 
 > This should only be enabled if villagers are causing lag! Otherwise, the pathfinding checks may decrease performance.
 
@@ -396,13 +396,13 @@ This decides the distance between the items and exp orbs to be merged, reducing 
 
 #### hopper-transfer
 
-`Good starting value: 8 (default)`
+`Good starting value: 8`
 
 Time in ticks that hoppers will wait to move an item. Increasing this will help improve performance if there are a lot of hoppers on your server, but will break hopper-based clocks and possibly item sorting systems if set too high.
 
 #### hopper-check
 
-`Good starting value: 8 (default: 1)`
+`Good starting value: 8`
 
 Time in ticks between hoppers checking for an item above them or in the inventory above them. Increasing this will help performance if there are a lot of hoppers on your server, but will break hopper-based clocks and item sorting systems relying on water streams.
 
@@ -447,7 +447,7 @@ This list lets you set alternative time (in ticks) to despawn certain types of d
 
 #### redstone-implementation
 
-`Good starting value: ALTERNATE_CURRENT (default: VANILLA)`
+`Good starting value: ALTERNATE_CURRENT`
 
 Replaces the redstone system with faster and alternative versions that reduce redundant block updates, lowering the amount of logic your server has to calculate. Using a non-vanilla implementation may introduce minor inconsistencies with very technical redstone, but the performance gains far outweigh the possible niche issues. A non-vanilla implementation option may additionally fix other redstone inconsistencies caused by CraftBukkit.
 
@@ -455,31 +455,31 @@ The `ALTERNATE_CURRENT` implementation is based off of the [Alternate Current](h
 
 #### hopper.disable-move-event
 
-`Good starting value: false (default)`
+`Good starting value: false`
 
 `InventoryMoveItemEvent` doesn't fire unless there is a plugin actively listening to that event. This means that you only should set this to true if you have such plugin(s) and don't care about them not being able to act on this event. **Do not set to true if you want to use plugins that listen to this event, e.g. protection plugins!**
 
 #### hopper.ignore-occluding-blocks
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 Determines if hoppers will ignore containers inside full blocks, for example hopper minecart inside sand or gravel block. Keeping this enabled will break some contraptions depending on that behavior.
 
 #### tick-rates.mob-spawner
 
-`Good starting value: 2 (default: 1)`
+`Good starting value: 2`
 
 This option lets you configure how often spawners should be ticked. Higher values mean less lag if you have a lot of spawners, although if set too high (relative to your spawners delay) mob spawn rates will decrease.
 
 #### optimize-explosions
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 Setting this to `true` replaces the vanilla explosion algorithm with a faster one, at a cost of slight inaccuracy when calculating explosion damage. This is usually not noticeable.
 
 #### treasure-maps.enabled
 
-`Good starting value: false (default: true)`
+`Good starting value: false`
 
 Generating treasure maps is extremely expensive and can hang a server if the structure it's trying to locate is in an ungenerated chunk. It's only safe to enable this if you pregenerated your world and set a vanilla world border.
 
@@ -495,25 +495,25 @@ Default value of this option forces the newly generated maps to look for unexplo
 
 #### tick-rates.grass-spread
 
-`Good starting value: 4 (default: 1)`
+`Good starting value: 4`
 
 Time in ticks between the server trying to spread grass or mycelium. This will make it so large areas of dirt will take a little longer to turn to grass or mycelium. Setting this to around `4` should work nicely if you want to decrease it without the decreased spread rate being noticeable.
 
 #### tick-rates.container-update
 
-`Good starting value: 1 (default)`
+`Good starting value: 1`
 
 Time in ticks between container updates. Increasing this might help if container updates cause issues for you (it rarely happens), but makes it easier for players to experience desync when interacting with inventories (ghost items).
 
 #### non-player-arrow-despawn-rate
 
-`Good starting value: 20 (default: default)`
+`Good starting value: 20`
 
 Time in ticks after which arrows shot by mobs should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
 
 #### creative-arrow-despawn-rate
 
-`Good starting value: 20 (default: default)`
+`Good starting value: 20`
 
 Time in ticks after which arrows shot by players in creative mode should disappear after hitting something. Players can't pick these up anyway, so you may as well set this to something like `20` (1 second).
 
@@ -521,7 +521,7 @@ Time in ticks after which arrows shot by players in creative mode should disappe
 
 #### disable-method-profiler
 
-`Good starting value: true (default)`
+`Good starting value: true`
 
 This option will disable some additional profiling done by the game. This profiling is not necessary to run in production and can cause additional lag.
 
@@ -529,12 +529,12 @@ This option will disable some additional profiling done by the game. This profil
 
 #### dolphin.disable-treasure-searching
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 Prevents dolphins from performing structure search similar to treasure maps
 
 #### teleport-if-outside-border
 
-`Good starting value: true (default: false)`
+`Good starting value: true`
 
 Allows you to teleport the player to the world spawn if they happen to be outside of the world border. Helpful since the vanilla world border is bypassable and the damage it does to the player can be mitigated.
